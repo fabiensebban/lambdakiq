@@ -68,7 +68,7 @@ module Lambdakiq
         @error = e
       else
         instrument :retry_stopped, error: e
-        delete_message
+        delete_message unless message_to_dlq?
       end
     end
 
@@ -116,5 +116,8 @@ module Lambdakiq
       active_job.send :instrument, name, error: error, wait: wait
     end
 
+    def message_to_dlq?
+      config.lambdakiq.max_retries_behaviour == :to_dlq
+    end
   end
 end

@@ -3,6 +3,7 @@ module Lambdakiq
     config.lambdakiq = ActiveSupport::OrderedOptions.new
     config.lambdakiq.max_retries = 12
     config.lambdakiq.metrics_namespace = 'Lambdakiq'
+    config.lambdakiq.max_retries_behaviour = :skip_dlq
 
     config.after_initialize do
       config.active_job.logger = Rails.logger
