@@ -17,6 +17,7 @@ module Lambdakiq
 
     def log
       return unless lambdakiq?
+      return unless Lambdakiq.config.send_cloud_watch_metrics
       logger.info JSON.dump(message)
     end
 

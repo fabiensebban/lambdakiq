@@ -43,6 +43,15 @@ class JobTest < LambdakiqSpec
     expect(metric['JobArg1']).must_equal 'test'
   end
 
+  it 'does not log cloudwatch embedded metrics when disabled' do
+    Lambdakiq.config.send_cloud_watch_metrics = false
+    response = Lambdakiq::Job.handler(event_basic(messageId: message_id))
+    assert_response response, failures: false
+    metric = logged_metric('perform.active_job')
+    expect(metric).must_be_nil
+    Lambdakiq.config.send_cloud_watch_metrics = true
+  end
+
   it 'must change message visibility to next value for failed jobs' do
     event = event_basic attributes: { ApproximateReceiveCount: '7' }, job_class: 'TestHelper::Jobs::ErrorJob', messageId: message_id
     response = Lambdakiq::Job.handler(event)
