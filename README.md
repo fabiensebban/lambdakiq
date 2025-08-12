@@ -171,6 +171,7 @@ config.lambdakiq
 - `max_retries=` - Retries for all jobs. Default is the Lambdakiq maximum of `12`.
 - `metrics_namespace=` - The CloudWatch Embedded Metrics namespace. Default is `Lambdakiq`.
 - `metrics_logger=` - Set to the Rails logger which is STDOUT via Lamby/Lambda.
+- `send_cloud_watch_metrics` - Set to `true` to enable CloudWatch metrics. Default is `true`.
 
 ### ActiveJob Configs
 
